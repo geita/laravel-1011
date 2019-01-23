@@ -2,7 +2,7 @@
 <html>
 <head>
   <title>@yield('title', 'Weibo App') - Laravel 新手入门</title>
-  <link rel="stylesheet" type="text/css" href="/css/app.css">
+  <link rel="stylesheet" href="{{ mix('css/app.css') }}">
 </head>
 <body>
   <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
@@ -19,6 +19,8 @@
     </div>
   </nav>
 
-  @yield('content')
+  <div class="container">
+    @yield('content')
+  </div>
 </body>
 </html>

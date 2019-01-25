@@ -10,7 +10,7 @@ class UsersController extends Controller
     public function __construct()
     {
         $this->middleware('auth', [
-            'except' => ['show', 'create', 'strore'],
+            'except' => ['show', 'create', 'strore', 'index'],
         ]);
 
         $this->middleware('guest', [
@@ -70,5 +70,11 @@ class UsersController extends Controller
         ]);
 
         return redirect()->route('users.show', $user->id);
+    }
+
+    public function index()
+    {
+        $users = User::paginate(10);
+        return view('users.index', compact('users'));
     }
 }

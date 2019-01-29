@@ -4,7 +4,9 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Http\Requests;
+use App\Models\Status;
 use Auth;
+use Carbon\Carbon;
 
 class StatusesController extends Controller
 {
@@ -20,10 +22,18 @@ class StatusesController extends Controller
         ]);
 
         Auth::user()->statuses()->create([
-            'content' => $request['content'],
+            'content' => '《' . $request['content'] . '》' . '  ---' . Carbon::now(),
         ]);
 
         session()->flash('success', '发布成功！');
+        return redirect()->back();
+    }
+
+    public function destroy(Status $status)
+    {
+        $this->authorize('destroy', $status);
+        $status->delete();
+        session()->flash('success', '微博已被成功删除！');
         return redirect()->back();
     }
 }
